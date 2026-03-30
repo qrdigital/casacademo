@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUERO LEGENDARIO - Catálogo Smart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- ESTILOS GENERALES (Reset & Typography) --- */
+        :root {
+            --color-principal: #1a1a1a; /* Negro suave */
+            --color-secundario: #c19a6b; /* Dorado/Cuero suave */
+            --color-fondo: #f9f9f9;
+            --color-texto: #333;
+            --color-blanco: #fff;
+            --fuente-titulo: 'Playfair Display', serif;
+            --fuente-texto: 'Poppins', sans-serif;
+        }
+
+        /* Importamos fuentes de Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--fuente-texto);
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            line-height: 1.6;
+            padding-bottom: 50px; /* Espacio al final */
+        }
+
+        .container {
+            max-width: 600px; /* Ancho optimizado para móviles y desktop */
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- HEADER (Título) --- */
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 20px;
+            /* Imagen de fondo genérica para el header */
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?q=80&w=600&auto=format&fit=crop') no-repeat center center;
+            background-size: cover;
+            border-radius: 10px;
+            color: var(--color-blanco);
+        }
+
+        header h1 {
+            font-family: var(--fuente-titulo);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-weight: 300;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* --- SECCIÓN INFO (Reseña) --- */
+        .info-section {
+            background-color: var(--color-blanco);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .info-section h2 {
+            font-family: var(--fuente-titulo);
+            color: var(--color-principal);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .info-section p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .highlight {
+            color: var(--color-secundario);
+            font-weight: 600;
+        }
+
+        /* --- SECCIÓN BOTONES / MENÚ --- */
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio entre botones */
+            margin-bottom: 30px;
+        }
+
+        /* Estilo para los botones (tanto <button> como <a>) */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%; /* Asegura que ocupen todo el ancho */
+            font-family: var(--fuente-texto);
+        }
+
+        .btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* Botones Normales (Negro) */
+        .btn-dark {
+            background-color: var(--color-principal);
+            color: var(--color-blanco);
+        }
+
+        .btn-dark:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+        }
+
+        /* Botón WhatsApp (Verde) */
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: var(--color-blanco);
+            margin-top: 10px;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1ebe57;
+            transform: translateY(-2px);
+        }
+
+        /* --- SECCIONES DE CONTENIDO DINÁMICO (Modelos y Ofertas) --- */
+        .content-section {
+            display: none; /* Oculto por defecto */
+            margin-top: 20px;
+            background-color: var(--color-blanco);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .content-section.active {
+            display: block; /* Muestra cuando está activo */
+        }
+
+        .section-title {
+            font-family: var(--fuente-titulo);
+            font-size: 1.8rem;
+            color: var(--color-principal);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--color-secundario);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* --- GRILLA DE IMÁGENES --- */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Adaptable */
+            gap: 15px;
+        }
+
+        .image-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .image-card:hover {
+            transform: scale(1.03);
+        }
+
+        /* Estilos específicos para las imágenes cargadas */
+        .image-card img {
+            width: 100%;
+            height: 150px; /* Altura fija para mantener la grilla uniforme */
+            object-fit: cover; /* Recorta la imagen para llenar el espacio sin deformarse */
+            display: block;
+        }
+
+        .image-card .info {
+            padding: 10px;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .image-card .price {
+            font-weight: 600;
+            color: var(--color-secundario);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            header h1 { font-size: 2rem; }
+            .section-title { font-size: 1.5rem; }
+            .image-grid { grid-template-columns: repeat(2, 1fr); }
+            /* Ajuste de altura de imagen en móviles para la oferta */
+            #content-ofertas .image-card img { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Cuero Legendario</h1>
+        <p>Maestros Artesanos</p>
+    </header>
+
+    <section class="info-section">
+        <h2>Nuestra Historia</h2>
+        <p>Iniciamos nuestra pasión en <span class="highlight">2010</span>, dedicándonos a crear prendas atemporales. Nuestros productos son elaborados con <span class="highlight">100% cuero legítimo</span> y confección artesanal de alta calidad.</p>
+    </section>
+
+    <nav class="menu-buttons">
+        <button class="btn btn-dark" id="btn-modelos">
+            <i class="fas fa-tshirt"></i> Nuestros Modelos
+        </button>
+
+        <a href="#" class="btn btn-dark" onclick="return false;">
+            <i class="fas fa-hat-cowboy"></i> Accesorios
+        </a>
+
+        <button class="btn btn-dark" id="btn-ofertas">
+            <i class="fas fa-tag"></i> Oferta del Mes
+        </button>
+
+        <a href="#" class="btn btn-dark" onclick="return false;">
+            <i class="fas fa-map-marker-alt"></i> Ubicación
+        </a>
+
+        <a href="https://wa.me/51990582170?text=Hola%20Cuero%20Legendario%20me%20brindan%20mas%20informacion%20sobre%20sus%20productos." 
+           class="btn btn-whatsapp" 
+           target="_blank">
+            <i class="fab fa-whatsapp"></i> Contáctanos (WhatsApp)
+        </a>
+    </nav>
+
+    <section id="content-modelos" class="content-section">
+        <h2 class="section-title">Nuestros Modelos</h2>
+        
+        <div class="image-grid">
+            <div class="image-card">
+                <img src="imagen1.jpg" alt="Casaca Modelo Biker">
+                <div class="info">
+                    <p>Casaca Biker Clásica</p>
+                    <p class="price">s/. 450</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="imagen2.jpg" alt="Casaca Modelo Aviador">
+                <div class="info">
+                    <p>Casaca Aviador Bomber</p>
+                    <p class="price">s/. 480</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="imagen3.jpg" alt="Casaca Modelo Minimalista">
+                <div class="info">
+                    <p>Modelo Minimalista</p>
+                    <p class="price">s/. 420</p>
+                </div>
+            </div>
+            </div>
+    </section>
+
+    <section id="content-ofertas" class="content-section">
+        <h2 class="section-title">Oferta del Mes</h2>
+        
+        <div class="image-grid">
+            <div class="image-card" style="grid-column: 1 / -1;"> <img src="oferta.jpg" alt="Oferta Especial del Mes" style="height: 250px;">
+                <div class="info" style="font-size: 1rem;">
+                    <p><strong>Casaca Racer Edición Limitada</strong></p>
+                    <p class="price" style="font-size: 1.2rem;">
+                        <del style="color:red; font-size:0.9rem; margin-right: 10px;">s/. 500</del> 
+                        s/. 370
+                    </p>
+                    <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">*Válido hasta agotar stock.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Cuero Legendario. Todos los derechos reservados.</p>
+    </footer>
+
+</div>
+
+<script>
+    // --- SCRIPT PARA MOSTRAR/OCULTAR SECCIONES ---
+    
+    // Obtenemos los elementos del DOM
+    const btnModelos = document.getElementById('btn-modelos');
+    const btnOfertas = document.getElementById('btn-ofertas');
+    const contentModelos = document.getElementById('content-modelos');
+    const contentOfertas = document.getElementById('content-ofertas');
+
+    // Función para ocultar todas las secciones de contenido
+    function ocultarSecciones() {
+        contentModelos.classList.remove('active');
+        contentOfertas.classList.remove('active');
+    }
+
+    // Eventos de clic para el Botón 1 (Modelos)
+    btnModelos.addEventListener('click', () => {
+        const estaActivo = contentModelos.classList.contains('active');
+        ocultarSecciones(); // Primero ocultamos todo
+        if (!estaActivo) {
+            contentModelos.classList.add('active'); // Mostramos si no estaba activo
+            contentModelos.scrollIntoView({ behavior: 'smooth' }); // Desplazamiento suave
+        }
+    });
+
+    // Eventos de clic para el Botón 3 (Ofertas)
+    btnOfertas.addEventListener('click', () => {
+        const estaActivo = contentOfertas.classList.contains('active');
+        ocultarSecciones(); // Primero ocultamos todo
+        if (!estaActivo) {
+            contentOfertas.classList.add('active'); // Mostramos si no estaba activo
+            contentOfertas.scrollIntoView({ behavior: 'smooth' }); // Desplazamiento suave
+        }
+    });
+</script>
+
+</body>
+</html>
